@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2012 Patrick Reisert
+ * Copyright (c) 2012 /// Patrick Reisert
  * Copyright (c) 2005, 2006, 2007 Henri Sivonen
  * Copyright (c) 2007-2008 Mozilla Foundation
  *
