@@ -52,7 +52,7 @@
     <Compile Include="Common\EncodingDetectedEventArgs.cs" />
     <Compile Include="Common\XmlViolationPolicy.cs" />
     <Compile Include="Core\DispatchGroup.cs" />
-    <Compile Include="Core\DomTreeBuilder.cs" />
+    <Compile Include="TreeBuilders\DomTreeBuilder.cs" />
     <Compile Include="Core\ElementName.cs" />
     <Compile Include="Core\HtmlAttributes.cs" />
     <Compile Include="Core\InsertionMode.cs" />

@@ -35,7 +35,7 @@ namespace HtmlParserSharp
 	/// <summary>
 	/// The tree builder glue for building a tree through the public DOM APIs.
 	/// </summary>
-	class DomTreeBuilder : CoalescingTreeBuilder<XmlElement>
+	class XmlTreeBuilder : CoalescingTreeBuilder<XmlElement>
 	{
 		/// <summary>
 		/// The current doc.

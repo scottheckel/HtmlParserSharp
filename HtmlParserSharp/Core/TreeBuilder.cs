@@ -728,7 +728,7 @@ namespace HtmlParserSharp.Core
 				case InsertionMode.IN_BODY:
 				case InsertionMode.IN_CELL:
 				case InsertionMode.IN_CAPTION:
-					if (!IsInForeign)
+                    if (!IsInForeignButNotHtmlOrMathTextIntegrationPoint)
 					{
 						ReconstructTheActiveFormattingElements();
 					}
@@ -794,7 +794,7 @@ namespace HtmlParserSharp.Core
 										 * Reconstruct the active formatting
 										 * elements, if any.
 										 */
-										if (!IsInForeignButNotHtmlIntegrationPoint)
+                                        if (!IsInForeignButNotHtmlOrMathTextIntegrationPoint)
 										{
 											FlushCharacters();
 											ReconstructTheActiveFormattingElements();
@@ -1001,7 +1001,7 @@ namespace HtmlParserSharp.Core
 										 * Reconstruct the active formatting
 										 * elements, if any.
 										 */
-										if (!IsInForeignButNotHtmlIntegrationPoint)
+                                        if (!IsInForeignButNotHtmlOrMathTextIntegrationPoint)
 										{
 											FlushCharacters();
 											ReconstructTheActiveFormattingElements();
@@ -1131,24 +1131,19 @@ namespace HtmlParserSharp.Core
 				AccumulateCharacters(TreeBuilderConstants.REPLACEMENT_CHARACTER, 0, 1);
 				return;
 			}
-			if (currentPtr >= 0)
-			{
-				StackNode<T> stackNode = stack[currentPtr];
-				if (stackNode.ns == "http://www.w3.org/1999/xhtml")
-				{
-					return;
-				}
-				if (stackNode.IsHtmlIntegrationPoint)
-				{
-					return;
-				}
-				//if (stackNode.ns == "http://www.w3.org/1998/Math/MathML"
-				//        && stackNode.Group == DispatchGroup.MI_MO_MN_MS_MTEXT)
-				//{
-				//    return;
-				//}
-				AccumulateCharacters(TreeBuilderConstants.REPLACEMENT_CHARACTER, 0, 1);
-			}
+            if (currentPtr >= 0)
+            {
+                if (IsSpecialParentInForeign(stack[currentPtr]))
+                {
+                    return;
+                }
+                //if (stackNode.ns == "http://www.w3.org/1998/Math/MathML"
+                //        && stackNode.Group == DispatchGroup.MI_MO_MN_MS_MTEXT)
+                //{
+                //    return;
+                //}
+                AccumulateCharacters(TreeBuilderConstants.REPLACEMENT_CHARACTER, 0, 1);
+            }
 		}
 
 		/// <summary>
@@ -2269,17 +2264,7 @@ namespace HtmlParserSharp.Core
 									attributes = null; // CPP
 									goto breakStarttagloop;
 								case DispatchGroup.RT_OR_RP:
-									/*
-									 * If the stack of open elements has a ruby
-									 * element in scope, then generate implied end
-									 * tags. If the current node is not then a ruby
-									 * element, this is a parse error; pop all the
-									 * nodes from the current node up to the node
-									 * immediately before the bottommost ruby
-									 * element on the stack of open elements.
-									 * 
-									 * Insert an HTML element for the token.
-									 */
+		
 									eltPos = FindLastInScope("ruby");
 									if (eltPos != TreeBuilderConstants.NOT_FOUND_ON_STACK)
 									{
@@ -2300,10 +2285,6 @@ namespace HtmlParserSharp.Core
 											{
 												Err("Unclosed children in \u201Cruby\u201D.");
 											}
-										}
-										while (currentPtr > eltPos)
-										{
-											Pop();
 										}
 									}
 									AppendToCurrentNodeAndPushElementMayFoster(
@@ -5800,16 +5781,16 @@ namespace HtmlParserSharp.Core
 			}
 		}
 
-		private bool IsInForeignButNotHtmlIntegrationPoint
-		{
-			get
-			{
-				return currentPtr >= 0
-					&& stack[currentPtr].ns != "http://www.w3.org/1999/xhtml"
-					&& !stack[currentPtr].IsHtmlIntegrationPoint;
-			}
-		}
 
+        private bool IsInForeignButNotHtmlOrMathTextIntegrationPoint 
+        {
+            get {
+                if (currentPtr < 0) {
+                    return false;
+                }
+                return !IsSpecialParentInForeign(stack[currentPtr]);
+            }
+        }
 		/**
 		 * The argument MUST be an interned string or <code>null</code>.
 		 * 

@@ -200,6 +200,10 @@ namespace HtmlParserSharp.Core
 
 		public const int SCRIPT_DATA_DOUBLE_ESCAPE_END = 72;
 
+        public const int PROCESSING_INSTRUCTION = 73;
+    
+        public const int PROCESSING_INSTRUCTION_QUESTION_MARK = 74;
+
 		/// <summary>
 		/// Magic value for UTF-16 operations.
 		/// </summary>
@@ -1246,6 +1250,7 @@ namespace HtmlParserSharp.Core
 			{
 				String val = LongStrBufToString(); // Ownership transferred to
 				// HtmlAttributes
+
 				// [NOCPP[
 				if (!endTag && html4 && html4ModeCompatibleWithXhtml1Schemata
 						&& attributeName.IsCaseFolded)
@@ -1351,7 +1356,10 @@ namespace HtmlParserSharp.Core
 			 * meaning. (The rest of the array is garbage and should not be
 			 * examined.)
 			 */
+
+            // [NOCPP[
 			pos = StateLoop(state, c, pos, buffer.Buffer, false, returnState, buffer.End);
+            // ]NOCPP]
 			if (pos == buffer.End)
 			{
 				// exiting due to end of buffer
@@ -3453,6 +3461,7 @@ namespace HtmlParserSharp.Core
 							 * second column of the named character references
 							 * table).
 							 */
+
 							char[] val = NamedCharacters.VALUES[candidate];
 							if (
 								// [NOCPP[
@@ -6399,6 +6408,48 @@ namespace HtmlParserSharp.Core
 									continue;
 							}
 						}
+                        // XXX reorder point
+                         case PROCESSING_INSTRUCTION:
+                            //processinginstructionloop: 
+                            for (;;) {
+                               if (++pos == endPos) {
+                                   break;
+                               }
+
+                               c = CheckChar(buf, pos);
+                               switch (c) {
+                                   case '?':
+                                       state = Transition(
+                                    state,
+                                           Tokenizer.PROCESSING_INSTRUCTION_QUESTION_MARK,
+                                             reconsume, pos);
+                                   
+                                       break;
+                                // continue stateloop;
+                                default:
+                                    continue;
+                            }
+                        }
+                    //breakProcessingInstructionLoop:
+                        break;
+
+
+                case PROCESSING_INSTRUCTION_QUESTION_MARK:
+                    if (++pos == endPos) {
+                         goto breakStateloop;
+                   }
+                   c = CheckChar(buf, pos);
+                   switch (c) {
+                      case '>':
+                           state = Transition(state, Tokenizer.DATA,
+                                   reconsume, pos);
+                           continue;
+                        default:
+                            state = Transition(state,
+                                    Tokenizer.PROCESSING_INSTRUCTION,
+                                    reconsume, pos);
+                           continue;
+                  }
 					// END HOTSPOT WORKAROUND
 				}
 			} // stateloop
@@ -7537,7 +7588,7 @@ namespace HtmlParserSharp.Core
 			{
 				attributeName = other.attributeName.CloneAttributeName();
 			}
-
+            
 			if (other.attributes == null)
 			{
 				attributes = null;
