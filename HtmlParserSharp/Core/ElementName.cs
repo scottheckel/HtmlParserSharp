@@ -381,6 +381,8 @@ namespace HtmlParserSharp.Core
 		//            return "ANNOTATION_XML";
 		//        case TreeBuilderConstants.FOREIGNOBJECT_OR_DESC:
 		//            return "FOREIGNOBJECT_OR_DESC";
+		//        case TreeBuilder.MENUITEM:
+		//             return "MENUITEM";
 		//    }
 		//    return null;
 		//}
@@ -724,6 +726,7 @@ namespace HtmlParserSharp.Core
 		public static readonly ElementName LOWLIMIT = new ElementName("lowlimit", "lowlimit", (int) DispatchGroup.OTHER);
 		public static readonly ElementName METADATA = new ElementName("metadata", "metadata", (int) DispatchGroup.OTHER);
 		public static readonly ElementName MENCLOSE = new ElementName("menclose", "menclose", (int) DispatchGroup.OTHER);
+        public static readonly ElementName MENUITEM = new ElementName("menuitem", "menuitem", (int) DispatchGroup.MENUITEM | SPECIAL);
 		public static readonly ElementName MPHANTOM = new ElementName("mphantom", "mphantom", (int) DispatchGroup.OTHER);
 		public static readonly ElementName NOFRAMES = new ElementName("noframes", "noframes", (int) DispatchGroup.NOFRAMES | SPECIAL);
 		public static readonly ElementName NOSCRIPT = new ElementName("noscript", "noscript", (int) DispatchGroup.NOSCRIPT | SPECIAL);
@@ -1116,6 +1119,7 @@ namespace HtmlParserSharp.Core
 	LOWLIMIT,
 	METADATA,
 	MENCLOSE,
+    MENUITEM,
 	MPHANTOM,
 	NOFRAMES,
 	NOSCRIPT,
@@ -1509,6 +1513,7 @@ namespace HtmlParserSharp.Core
 	281683369,
 	282120228,
 	282250732,
+    282498697,
 	282508942,
 	283743649,
 	283787570,

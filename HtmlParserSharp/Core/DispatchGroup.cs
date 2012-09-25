@@ -156,6 +156,8 @@ namespace HtmlParserSharp.Core
 
 		FONT = 64,
 
-		KEYGEN = 65
+		KEYGEN = 65,
+        
+        MENUITEM = 66
 	}
 }
