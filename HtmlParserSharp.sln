@@ -5,8 +5,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlParserSharp", "HtmlPars
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlParserSharp.Tests", "HtmlParserSharp.Tests\HtmlParserSharp.Tests.csproj", "{B0AD90A0-F661-4C4B-9B26-F2EC4DA03BC4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CsQuery", "..\csquery\source\CsQuery\CsQuery.csproj", "{C38DFFE9-321B-4941-B031-29D718AB5C31}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,14 +25,6 @@ Global
 		{B0AD90A0-F661-4C4B-9B26-F2EC4DA03BC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B0AD90A0-F661-4C4B-9B26-F2EC4DA03BC4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B0AD90A0-F661-4C4B-9B26-F2EC4DA03BC4}.Release|x64.ActiveCfg = Release|Any CPU
-		{C38DFFE9-321B-4941-B031-29D718AB5C31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C38DFFE9-321B-4941-B031-29D718AB5C31}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C38DFFE9-321B-4941-B031-29D718AB5C31}.Debug|x64.ActiveCfg = Debug|x64
-		{C38DFFE9-321B-4941-B031-29D718AB5C31}.Debug|x64.Build.0 = Debug|x64
-		{C38DFFE9-321B-4941-B031-29D718AB5C31}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C38DFFE9-321B-4941-B031-29D718AB5C31}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C38DFFE9-321B-4941-B031-29D718AB5C31}.Release|x64.ActiveCfg = Release|x64
-		{C38DFFE9-321B-4941-B031-29D718AB5C31}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
