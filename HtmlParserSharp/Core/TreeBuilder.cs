@@ -39,6 +39,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using HtmlParserSharp.Common;
 using System.Xml;
+using System.Text;
 
 namespace HtmlParserSharp.Core
 {
@@ -100,9 +101,15 @@ namespace HtmlParserSharp.Core
 		 */
 		private T deepTreeSurrogateParent;
 
-		protected char[] charBuffer;
+		//protected char[] charBuffer;
+        protected StringBuilder charBuffer;
 
-		protected int charBufferLen = 0;
+		protected int charBufferLen 
+        { 
+            get {
+                return charBuffer.Length;
+            } 
+        }
 
 		private bool quirks = false;
 
@@ -324,8 +331,8 @@ namespace HtmlParserSharp.Core
 			//wantingComments = false;
 			// ]NOCPP]
 			Start(fragment);
-			charBufferLen = 0;
-			charBuffer = new char[1024];
+            charBuffer = new StringBuilder();
+            charBuffer.Clear();
 			framesetOk = true;
 			if (fragment)
 			{
@@ -5617,15 +5624,7 @@ namespace HtmlParserSharp.Core
 
 		private void AccumulateCharactersForced(char[] buf, int start, int length)
 		{
-			int newLen = charBufferLen + length;
-			if (newLen > charBuffer.Length)
-			{
-				char[] newBuf = new char[newLen];
-				Array.Copy(charBuffer, newBuf, charBufferLen);
-				charBuffer = newBuf;
-			}
-			Array.Copy(buf, start, charBuffer, charBufferLen, length);
-			charBufferLen = newLen;
+            charBuffer.Append(buf, start, length);
 		}
 
 		// ]NOCPP]
@@ -5663,11 +5662,13 @@ namespace HtmlParserSharp.Core
 
 		protected abstract void InsertFosterParentedChild(T child, T table, T stackParent);
 
-		protected abstract void InsertFosterParentedCharacters(
-				char[] buf, int start, int length, T table, T stackParent);
+        protected abstract void InsertFosterParentedCharacters(
+                StringBuilder sb, T table, T stackParent);
 
 		protected abstract void AppendCharacters(T parent, char[] buf,
 				int start, int length);
+        
+        protected abstract void AppendCharacters(T parent, StringBuilder sb);
 
 		protected abstract void AppendIsindexPrompt(T parent);
 
@@ -5826,9 +5827,8 @@ namespace HtmlParserSharp.Core
 					if (!stack[currentPtr].IsFosterParenting)
 					{
 						// reconstructing gave us a new current node
-						AppendCharacters(CurrentNode(), charBuffer, 0,
-								charBufferLen);
-						charBufferLen = 0;
+						AppendCharacters(CurrentNode(), charBuffer);
+                        charBuffer.Clear();
 						return;
 					}
 					int eltPos = FindLastOrRoot(DispatchGroup.TABLE);
@@ -5836,17 +5836,16 @@ namespace HtmlParserSharp.Core
 					T elt = node.node;
 					if (eltPos == 0)
 					{
-						AppendCharacters(elt, charBuffer, 0, charBufferLen);
-						charBufferLen = 0;
+						AppendCharacters(elt, charBuffer);
+                        charBuffer.Clear();
 						return;
 					}
-					InsertFosterParentedCharacters(charBuffer, 0, charBufferLen,
-							elt, stack[eltPos - 1].node);
-					charBufferLen = 0;
+					InsertFosterParentedCharacters(charBuffer,elt, stack[eltPos - 1].node);
+                    charBuffer.Clear();
 					return;
 				}
-				AppendCharacters(CurrentNode(), charBuffer, 0, charBufferLen);
-				charBufferLen = 0;
+				AppendCharacters(CurrentNode(), charBuffer);
+                charBuffer.Clear();
 			}
 		}
 

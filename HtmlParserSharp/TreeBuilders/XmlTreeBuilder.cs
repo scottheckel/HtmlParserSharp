@@ -47,8 +47,7 @@ namespace HtmlParserSharp
 				String localName = attributes.GetLocalName(i);
 				String uri = attributes.GetURI(i);
 				if (!element.HasAttribute(localName, uri)) {
-					element.SetAttribute(localName, uri,
-							attributes.GetValue(i));
+					element.SetAttribute(localName, uri, attributes.GetValue(i));
 				}
 			}
 		}

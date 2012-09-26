@@ -22,6 +22,7 @@
  */
 
 using System;
+using System.Text;
 
 namespace HtmlParserSharp.Core
 {
@@ -32,31 +33,14 @@ namespace HtmlParserSharp.Core
 	/// </summary>
 	public abstract class CoalescingTreeBuilder<T> : TreeBuilder<T> where T : class
 	{
-        private const int bufGrowBy = 10240;
-		protected override void AccumulateCharacters(char[] buf, int start, int length)
-		{
-
-			if (charBufferLen + length > charBuffer.Length)
-			{
-                int newLen = charBufferLen + Math.Max(length, bufGrowBy);
-
-                char[] newBuf = new char[newLen];
-				Array.Copy(charBuffer, newBuf, charBufferLen);
-				charBuffer = null; // release the old buffer in C++
-				charBuffer = newBuf;
-            }
-            if (length>0) {
-                Array.Copy(buf, start, charBuffer, charBufferLen, length);
-                charBufferLen += length;
-			}
-			
-		}
-
 		override protected void AppendCharacters(T parent, char[] buf, int start, int length)
 		{
 			AppendCharacters(parent, new String(buf, start, length));
 		}
-
+        override protected void AppendCharacters(T parent, StringBuilder sb)
+        {
+            AppendCharacters(parent, sb.ToString());
+        }
 
 		override protected void AppendIsindexPrompt(T parent)
 		{
@@ -80,11 +64,16 @@ namespace HtmlParserSharp.Core
 
 		protected abstract void AppendCommentToDocument(string comment);
 
-		override protected void InsertFosterParentedCharacters(char[] buf, int start,
-				int length, T table, T stackParent)
-		{
-			InsertFosterParentedCharacters(new String(buf, start, length), table, stackParent);
-		}
+        //override protected void InsertFosterParentedCharacters(char[] buf, int start,
+        //        int length, T table, T stackParent)
+        //{
+        //    InsertFosterParentedCharacters(new String(buf, start, length), table, stackParent);
+        //}
+
+        protected override void InsertFosterParentedCharacters(StringBuilder sb, T table, T stackParent)
+        {
+            InsertFosterParentedCharacters(sb.ToString(), table, stackParent);
+        }
 
 		protected abstract void InsertFosterParentedCharacters(string text, T table, T stackParent);
 	}
