@@ -4,9 +4,7 @@
 
 Build/
 WebSite/
-source/TestResults/
-source/CsQuery.Tests/Performance/Output/
-source/CsQuery.PerformanceTests/Output/
+TestResults/
 packages
 *.nupkg
 
