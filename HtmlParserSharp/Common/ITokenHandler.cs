@@ -109,5 +109,12 @@ namespace HtmlParserSharp.Common
 		/// </summary>
 		/// <returns><c>true</c> if CDATA sections are allowed</returns>
 		bool IsCDataSectionAllowed { get; }
+
+        /// <summary>
+        /// Gets a value indicating whether self-closing tags should be allowed. When true, any tag may
+        /// close itself. When false, a self-closing tag is treated like an opening-tag only.
+        /// </summary>
+
+        bool AllowSelfClosingTags { get; }
 	}
 }

@@ -7609,6 +7609,7 @@ namespace HtmlParserSharp.Core
 			html4 = false;
 			metaBoundaryPassed = false;
 			wantsComments = TokenHandler.WantsComments;
+
 			if (!newAttributesEachTime)
 			{
 				attributes = new HtmlAttributes(mappingLangToXmlLang);

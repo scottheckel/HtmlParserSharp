@@ -68,12 +68,6 @@ namespace HtmlParserSharp.Core
 
 		private bool needToDropLF;
 
-		// [NOCPP[
-
-		private bool wantingComments;
-
-		// ]NOCPP]
-
 		private bool fragment;
 
 		[Local]
@@ -663,7 +657,7 @@ namespace HtmlParserSharp.Core
 		{
 			needToDropLF = false;
 			// [NOCPP[
-			if (!wantingComments)
+			if (!WantsComments)
 			{
 				return;
 			}
@@ -3007,10 +3001,12 @@ namespace HtmlParserSharp.Core
 			}
 
 		breakStarttagloop:
-
-			if (ErrorEvent != null && selfClosing)
-			{
-				Err("Self-closing syntax (\u201C/>\u201D) used on a non-void HTML element. Ignoring the slash and treating as a start tag.");
+            if (selfClosing) {
+                if (AllowSelfClosingTags) {
+                    EndTag(elementName);
+                } else if (ErrorEvent != null) {
+                    Err("Self-closing syntax (\u201C/>\u201D) used on a non-void HTML element. Ignoring the slash and treating as a start tag.");
+                }
 			}
 		}
 
@@ -5724,25 +5720,13 @@ namespace HtmlParserSharp.Core
 		/// <returns>
 		/// Whether this handler wants comments
 		/// </returns>
-		bool ITokenHandler.WantsComments
+		public bool WantsComments
 		{
-			get
-			{
-				return wantingComments;
-			}
+			get; set;
 		}
 
-		public bool IsIgnoringComments
-		{
-			get
-			{
-				return !wantingComments;
-			}
-			set
-			{
-				wantingComments = !value;
-			}
-		}
+        public bool AllowSelfClosingTags { get; set; }
+
 
 		/**
 		 * The argument MUST be an interned string or <code>null</code>.
