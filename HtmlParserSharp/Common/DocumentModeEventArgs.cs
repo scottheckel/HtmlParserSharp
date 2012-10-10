@@ -22,6 +22,8 @@
 
 using System;
 
+#pragma warning disable 1591
+
 namespace HtmlParserSharp.Common
 {
 	public class DocumentModeEventArgs : EventArgs

@@ -24,6 +24,8 @@
 
 using HtmlParserSharp.Core;
 
+#pragma warning disable 1591
+
 namespace HtmlParserSharp.Common
 {
 	/// <summary>

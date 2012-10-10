@@ -41,6 +41,10 @@ using HtmlParserSharp.Common;
 using System.Xml;
 using System.Text;
 
+#pragma warning disable 1591 // Missing XML comment
+#pragma warning disable 1570 // XML comment on 'construct' has badly formed XML — 'reason'
+#pragma warning disable 1587 // XML comment is not placed on a valid element
+
 namespace HtmlParserSharp.Core
 {
 	public abstract class TreeBuilder<T> : ITokenHandler, ITreeBuilderState<T> where T : class

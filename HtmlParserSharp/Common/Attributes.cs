@@ -22,6 +22,8 @@
 
 using System;
 
+#pragma warning disable 1591
+
 namespace HtmlParserSharp.Common
 {
 	// This file contains the attributes that correspond to the annotations

@@ -22,6 +22,8 @@
  * DEALINGS IN THE SOFTWARE.
  */
 
+#pragma warning disable 1591
+
 namespace HtmlParserSharp.Common
 {
 	public enum DocumentMode

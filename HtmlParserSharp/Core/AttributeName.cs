@@ -24,6 +24,9 @@
 using System;
 using HtmlParserSharp.Common;
 
+#pragma warning disable 1591
+#pragma warning disable 1570
+
 namespace HtmlParserSharp.Core
 {
 	public sealed partial class AttributeName
@@ -434,13 +437,16 @@ namespace HtmlParserSharp.Core
 			return new AttributeName(AttributeName.ALL_NO_NS, AttributeName.SAME_LOCAL(name), ALL_NO_PREFIX, flags);
 		}
 
-		/// <summary>
-		/// TODO: remove this (?)
-		/// Clones the attribute using an interner. Returns 
-		/// <code>this</code> in Java and for non-dynamic instances in C++.
-		/// </summary>
-		/// <param name="interner">An interner</param>
-		/// <returns>A clone</returns>
+        /// <summary>
+        /// TODO: remove this (?)
+        /// Clones the attribute using an interner. Returns
+        /// <code>this</code> in Java and for non-dynamic instances in C++.
+        /// </summary>
+        ///
+        /// <returns>
+        /// A clone.
+        /// </returns>
+
 		public /*virtual*/ AttributeName CloneAttributeName(/*Interner interner*/)
 		{
 			return this;
