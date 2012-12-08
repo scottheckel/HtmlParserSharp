@@ -7335,7 +7335,7 @@ namespace HtmlParserSharp.Core
 			}
 		}
 
-		// ]NOCPP]
+		// ]NOCPP] 
 
 		public bool InternalEncodingDeclaration(string internalCharset)
 		{
@@ -7489,7 +7489,8 @@ namespace HtmlParserSharp.Core
 			value = 0;
 			seenDigits = false;
 			endTag = false;
-			shouldSuspend = false;
+            // Removed J. Treworgy 12/7/2012 - this should remain true so the parser can choose to abort 
+			//shouldSuspend = false;
 			InitDoctypeFields();
 			if (tagName != null)
 			{
@@ -7898,5 +7899,17 @@ namespace HtmlParserSharp.Core
 		}
 
 		// ]NOCPP]
+
+        /// <summary>
+        /// Gets a value indicating whether the parsing has been suspended.
+        /// </summary>
+
+        public bool IsSuspended
+        {
+            get
+            {
+                return shouldSuspend;
+            }
+        }
 	}
 }
