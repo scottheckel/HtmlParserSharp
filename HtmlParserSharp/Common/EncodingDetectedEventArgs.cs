@@ -29,6 +29,12 @@ namespace HtmlParserSharp.Common
 	public class EncodingDetectedEventArgs : EventArgs
 	{
 		public string Encoding { get; private set; }
+
+        /// <summary>
+        /// When true, the client has decided to accept the charset-encoding for the document and the
+        /// current processing must be suspended. (Set true to stop encoding).
+        /// </summary>
+
 		public bool AcceptEncoding { get; set; }
 
 		public EncodingDetectedEventArgs(string encoding)

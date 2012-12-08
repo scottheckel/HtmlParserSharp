@@ -508,7 +508,7 @@ namespace HtmlParserSharp.Core
 		{
 			for (int i = 0; i < length; i++)
 			{
-				if (name.EqualsAnother(names[i]))
+				if (name.Equals(names[i]))
 				{
 					return true;
 				}
@@ -516,7 +516,7 @@ namespace HtmlParserSharp.Core
 			// [NOCPP[
 			for (int i = 0; i < xmlnsLength; i++)
 			{
-				if (name.EqualsAnother(xmlnsNames[i]))
+				if (name.Equals(xmlnsNames[i]))
 				{
 					return true;
 				}
