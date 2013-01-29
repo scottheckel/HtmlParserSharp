@@ -329,7 +329,8 @@ namespace HtmlParserSharp.Core
 			//wantingComments = false;
 			// ]NOCPP]
 			Start(fragment);
-            charBuffer = new StringBuilder(10240);
+            //charBuffer = new StringBuilder(10240);
+            charBuffer = new StringBuilder();
             charBuffer.Clear();
 			framesetOk = true;
 			if (fragment)
