@@ -354,27 +354,26 @@ namespace HtmlParserSharp.Core
 				ResetTheInsertionMode();
 				if ("title" == contextName || "textarea" == contextName)
 				{
-					tokenizer.SetStateAndEndTagExpectation(Tokenizer.RCDATA, contextName);
+                    tokenizer.SetStateAndEndTagExpectation(TokenizerState.RCDATA, contextName);
 				}
 				else if ("style" == contextName || "xmp" == contextName
 					  || "iframe" == contextName || "noembed" == contextName
 					  || "noframes" == contextName
 					  || (IsScriptingEnabled && "noscript" == contextName))
 				{
-					tokenizer.SetStateAndEndTagExpectation(Tokenizer.RAWTEXT, contextName);
+                    tokenizer.SetStateAndEndTagExpectation(TokenizerState.RAWTEXT, contextName);
 				}
 				else if ("plaintext" == contextName)
 				{
-					tokenizer.SetStateAndEndTagExpectation(Tokenizer.PLAINTEXT, contextName);
+                    tokenizer.SetStateAndEndTagExpectation(TokenizerState.PLAINTEXT, contextName);
 				}
 				else if ("script" == contextName)
 				{
-					tokenizer.SetStateAndEndTagExpectation(Tokenizer.SCRIPT_DATA,
-							contextName);
+					tokenizer.SetStateAndEndTagExpectation(TokenizerState.SCRIPT_DATA,contextName);
 				}
 				else
 				{
-					tokenizer.SetStateAndEndTagExpectation(Tokenizer.DATA, contextName);
+                    tokenizer.SetStateAndEndTagExpectation(TokenizerState.DATA, contextName);
 				}
 				contextName = null;
 				contextNode = null;
@@ -1661,7 +1660,7 @@ namespace HtmlParserSharp.Core
 									originalMode = mode;
 									mode = InsertionMode.TEXT;
 									tokenizer.SetStateAndEndTagExpectation(
-											Tokenizer.SCRIPT_DATA, elementName);
+                                            TokenizerState.SCRIPT_DATA, elementName);
 									attributes = null; // CPP
 									goto breakStarttagloop;
 								case DispatchGroup.STYLE:
@@ -1671,7 +1670,7 @@ namespace HtmlParserSharp.Core
 									originalMode = mode;
 									mode = InsertionMode.TEXT;
 									tokenizer.SetStateAndEndTagExpectation(
-											Tokenizer.RAWTEXT, elementName);
+                                            TokenizerState.RAWTEXT, elementName);
 									attributes = null; // CPP
 									goto breakStarttagloop;
 								case DispatchGroup.INPUT:
@@ -1969,7 +1968,7 @@ namespace HtmlParserSharp.Core
 											elementName,
 											attributes);
 									tokenizer.SetStateAndEndTagExpectation(
-											Tokenizer.PLAINTEXT, elementName);
+                                            TokenizerState.PLAINTEXT, elementName);
 									attributes = null; // CPP
 									goto breakStarttagloop;
 								case DispatchGroup.A:
@@ -2191,7 +2190,7 @@ namespace HtmlParserSharp.Core
 											elementName,
 											attributes, formPointer);
 									tokenizer.SetStateAndEndTagExpectation(
-											Tokenizer.RCDATA, elementName);
+                                            TokenizerState.RCDATA, elementName);
 									originalMode = mode;
 									mode = InsertionMode.TEXT;
 									needToDropLF = true;
@@ -2206,7 +2205,7 @@ namespace HtmlParserSharp.Core
 									originalMode = mode;
 									mode = InsertionMode.TEXT;
 									tokenizer.SetStateAndEndTagExpectation(
-											Tokenizer.RAWTEXT, elementName);
+                                            TokenizerState.RAWTEXT, elementName);
 									attributes = null; // CPP
 									goto breakStarttagloop;
 								case DispatchGroup.NOSCRIPT:
@@ -2233,7 +2232,7 @@ namespace HtmlParserSharp.Core
 									originalMode = mode;
 									mode = InsertionMode.TEXT;
 									tokenizer.SetStateAndEndTagExpectation(
-											Tokenizer.RAWTEXT, elementName);
+                                            TokenizerState.RAWTEXT, elementName);
 									attributes = null; // CPP
 									goto breakStarttagloop;
 								case DispatchGroup.SELECT:
@@ -2395,7 +2394,7 @@ namespace HtmlParserSharp.Core
 									originalMode = mode;
 									mode = InsertionMode.TEXT;
 									tokenizer.SetStateAndEndTagExpectation(
-											Tokenizer.RCDATA, elementName);
+                                            TokenizerState.RCDATA, elementName);
 									attributes = null; // CPP
 									goto breakStarttagloop;
 								case DispatchGroup.NOSCRIPT:
@@ -2407,7 +2406,7 @@ namespace HtmlParserSharp.Core
 										originalMode = mode;
 										mode = InsertionMode.TEXT;
 										tokenizer.SetStateAndEndTagExpectation(
-												Tokenizer.RAWTEXT, elementName);
+                                                TokenizerState.RAWTEXT, elementName);
 									}
 									else
 									{
@@ -2429,7 +2428,7 @@ namespace HtmlParserSharp.Core
 									originalMode = mode;
 									mode = InsertionMode.TEXT;
 									tokenizer.SetStateAndEndTagExpectation(
-											Tokenizer.SCRIPT_DATA, elementName);
+                                            TokenizerState.SCRIPT_DATA, elementName);
 									attributes = null; // CPP
 									goto breakStarttagloop;
 								case DispatchGroup.STYLE:
@@ -2440,7 +2439,7 @@ namespace HtmlParserSharp.Core
 									originalMode = mode;
 									mode = InsertionMode.TEXT;
 									tokenizer.SetStateAndEndTagExpectation(
-											Tokenizer.RAWTEXT, elementName);
+                                            TokenizerState.RAWTEXT, elementName);
 									attributes = null; // CPP
 									goto breakStarttagloop;
 								case DispatchGroup.HEAD:
@@ -2494,7 +2493,7 @@ namespace HtmlParserSharp.Core
 								originalMode = mode;
 								mode = InsertionMode.TEXT;
 								tokenizer.SetStateAndEndTagExpectation(
-										Tokenizer.RAWTEXT, elementName);
+                                        TokenizerState.RAWTEXT, elementName);
 								attributes = null; // CPP
 								goto breakStarttagloop;
 							case DispatchGroup.HEAD:
@@ -2649,7 +2648,7 @@ namespace HtmlParserSharp.Core
 								originalMode = mode;
 								mode = InsertionMode.TEXT;
 								tokenizer.SetStateAndEndTagExpectation(
-										Tokenizer.SCRIPT_DATA, elementName);
+                                        TokenizerState.SCRIPT_DATA, elementName);
 								attributes = null; // CPP
 								goto breakStarttagloop;
 							default:
@@ -2711,7 +2710,7 @@ namespace HtmlParserSharp.Core
 								originalMode = mode;
 								mode = InsertionMode.TEXT;
 								tokenizer.SetStateAndEndTagExpectation(
-										Tokenizer.RAWTEXT, elementName);
+                                        TokenizerState.RAWTEXT, elementName);
 								attributes = null; // CPP
 								goto breakStarttagloop;
 							default:
@@ -2916,7 +2915,7 @@ namespace HtmlParserSharp.Core
 								originalMode = mode;
 								mode = InsertionMode.TEXT;
 								tokenizer.SetStateAndEndTagExpectation(
-										Tokenizer.SCRIPT_DATA, elementName);
+                                        TokenizerState.SCRIPT_DATA, elementName);
 								attributes = null; // CPP
 								goto breakStarttagloop;
 							case DispatchGroup.STYLE:
@@ -2931,7 +2930,7 @@ namespace HtmlParserSharp.Core
 								originalMode = mode;
 								mode = InsertionMode.TEXT;
 								tokenizer.SetStateAndEndTagExpectation(
-										Tokenizer.RAWTEXT, elementName);
+                                        TokenizerState.RAWTEXT, elementName);
 								attributes = null; // CPP
 								goto breakStarttagloop;
 							case DispatchGroup.TITLE:
@@ -2943,7 +2942,7 @@ namespace HtmlParserSharp.Core
 								originalMode = mode;
 								mode = InsertionMode.TEXT;
 								tokenizer.SetStateAndEndTagExpectation(
-										Tokenizer.RCDATA, elementName);
+                                        TokenizerState.RCDATA, elementName);
 								attributes = null; // CPP
 								goto breakStarttagloop;
 							case DispatchGroup.HEAD:
@@ -2989,7 +2988,7 @@ namespace HtmlParserSharp.Core
 								originalMode = mode;
 								mode = InsertionMode.TEXT;
 								tokenizer.SetStateAndEndTagExpectation(
-										Tokenizer.SCRIPT_DATA, elementName);
+                                        TokenizerState.SCRIPT_DATA, elementName);
 								attributes = null; // CPP
 								goto breakStarttagloop;
 							default:

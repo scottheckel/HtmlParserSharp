@@ -31,6 +31,7 @@ namespace HtmlParserSharp.Core
 {
 	public sealed partial class AttributeName
 	{
+        
 		// [NOCPP[
 
 		public const int NCNAME_HTML = 1;
@@ -542,7 +543,8 @@ namespace HtmlParserSharp.Core
 
         public override int GetHashCode()
         {
-            return GetLocal(0).GetHashCode();
+            var name = GetLocal(0);
+            return BufToHash(name.ToCharArray(), name.Length);
         }
         
         public override bool Equals(object obj)

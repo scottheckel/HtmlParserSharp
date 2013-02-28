@@ -52,7 +52,7 @@ namespace HtmlParserSharp.Core
 
 		private int length;
 
-		private AttributeName[] names;
+	    private AttributeName[] names;
 
 		private string[] values;
 
@@ -431,6 +431,7 @@ namespace HtmlParserSharp.Core
 					int newLen = xmlnsLength == 0 ? 2 : xmlnsLength << 1;
 					AttributeName[] newNames = new AttributeName[newLen];
 					Array.Copy(xmlnsNames, newNames, xmlnsNames.Length);
+                    
 					xmlnsNames = newNames;
 					string[] newValues = new string[newLen];
 					Array.Copy(xmlnsValues, newValues, xmlnsValues.Length);
