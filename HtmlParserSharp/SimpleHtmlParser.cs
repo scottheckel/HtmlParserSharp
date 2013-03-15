@@ -76,7 +76,6 @@ namespace HtmlParserSharp
 		{
 			treeBuilder = new XmlTreeBuilder();
 			tokenizer = new Tokenizer(treeBuilder, false);
-			treeBuilder.IsIgnoringComments = false;
 
 			// optionally: report errors and more
 
